@@ -41,12 +41,16 @@ public class StringToIntDriver {
 		Scanner in = new Scanner(System.in);
 		boolean error = true;
 		String inputVal = "";
+		int base = 10;
 		
 		do {
 			try {
 				System.out.println("Enter a string to convert to int");
 				inputVal = in.nextLine();
-
+				
+				System.out.println("Enter a integer for the base");
+				base = in.nextInt();
+				
 				error = false;
 			}
 			catch (Exception e) {
@@ -54,12 +58,9 @@ public class StringToIntDriver {
 			}
 		} while (error);
 
-		Integer number = lib.stringToInt(inputVal);
+		Integer number = lib.stringToInt(inputVal, base);
 		if (number != null) {
 			System.out.println(number);
-		}
-		else {
-			System.out.println("Cannot parse string, needs to be base 10");
 		}
 	}
 

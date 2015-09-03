@@ -6,6 +6,7 @@
 public class Library {
 	// ASCII character for null is 0
 	public char emptyChar = 0;
+	private String alphanumeric = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	
 	public String[] split( String value, char splitOn ) {
 		// Make sure value is not null, then begin splitting
@@ -79,39 +80,68 @@ public class Library {
 	}
 	
 	public Integer stringToInt(String value, int base) {
+		if (base < 2 || base > 62) {
+			System.out.println("Please input a base from 2 to 62");
+			return null;
+		}
+		
 		// String is not null
 		if (value != null) {
 			// number to return, element is a char in String
-			int number = 0, i = 0, element;
-			boolean isNegative = false;
+			int number = 0, power = 0, element;
+			boolean valid;
+//			boolean isNegative = false;
 			
-			// negative integer check
-			if (value.charAt(i) == '-') {
-				isNegative = true;
-				i++;
-			}
+			// characters in each base
+			String baseChars = alphanumeric.substring(0, base);
 			
-			while (i < value.length()) {
-				element = value.charAt(i);
+			// check string if it contains any invalid characters
+			for (int i = 0; i < value.length(); i++) {
+				// reset valid after checking against baseChars
+				valid = false;
 				
-				// non-digit character check
-				if (!Character.isDigit(element)) {
+				for (int j = 0; j < baseChars.length(); j++) {
+					if (value.charAt(i) == baseChars.charAt(j) ) {
+						valid = true;
+						break;
+					}
+				}
+				// Return null upon invalid strings
+				if (!valid) {
+					System.out.println("Invalid String");
 					return null;
 				}
-				// valid character (is a number)
-				else {
-					// shift number left one digit
-					number *= 10;
-					
-					// subtract '0' (ASCII base 10 = 49) to add the next digit (0-9) 
-					number += element - '0';
+			}
+			
+//			// negative integer check
+//			if (value.charAt(i) == '-') {
+//				isNegative = true;
+//				i++;
+//			}
+			
+			for (int i = value.length() - 1; i >= 0; i--, power++) {
+				element = value.charAt(i);
+				
+				if (!Character.isLetterOrDigit(element)) {
+					return null;
 				}
-				i++;
+				else if (Character.isDigit(element)) {
+					element -= '0';
+				} 
+				else if (Character.isLowerCase(element)) {
+					element -= 'a' - 10;
+				}
+				else if (Character.isUpperCase(element)) {
+					element -= 'A' - 27;
+				}
+
+				number += element * Math.pow(base, power);
 			}
-			if (isNegative) {
-				// make the number negative
-				number = -number;
-			}
+			
+//			if (isNegative) {
+//				// make the number negative
+//				number = -number;
+//			}
 			return number;
 			
 		}
