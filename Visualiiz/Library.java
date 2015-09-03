@@ -33,26 +33,48 @@ public class Library {
 				else {
 					int startStr = 0;		// start of value to set in string array
 					int strArrayIndex = 0;  // index for string array
-					char element;			
-					boolean split, atEndOfString;
+					int next = 0;
+					char element, nextElement;			
+					boolean split, atEndOfString, adjacent = false;
 					String[] temp = new String[value.length()];
 					
 					// Traverse value string and set the string array per split
 					for (int i = 0; i < value.length(); i++) {
 						element = value.charAt(i);
+						
 						atEndOfString = (i == value.length() - 1);
 						split = (element == splitOn);
 						
 						// Split value and set to temp array and move forward index
 						// and starting position of the next string
 						if ( split || atEndOfString ) {
+							// Save the next index, used in multiple places
+							next = i + 1;
+							
+							// Check if next element is another onSplit char
+							// as long as its not the end of string
+							if (!atEndOfString) {
+								nextElement = value.charAt(next);
+								adjacent = (element == nextElement);
+							}
+							
 							// Gets the last character, cannot be the onSplit char
 							if ( atEndOfString && !split) {
 								i += 1;
 							}
+							
 							temp[strArrayIndex] = value.substring(startStr, i);
 							strArrayIndex++;
-							startStr = i + 1;
+							
+							// nextElement is also the onSplit character
+							if ( adjacent && startStr < i) {
+								startStr++;
+								temp[strArrayIndex] = value.substring(startStr, i);
+								strArrayIndex++;
+								adjacent = false;
+							}
+							startStr = next;
+								
 						}
 					}
 					

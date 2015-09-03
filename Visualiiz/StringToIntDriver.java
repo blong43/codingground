@@ -4,7 +4,7 @@ import java.util.*;
  *  Author: Blong Thao
  *  Date:   9/2/15
  *  
- *  Assumptions:
+ *  Assumptions for stringToInt function:
  *  -- Default stringToInt(String) function has a preset base of 10
  *  	OR stringToInt(string, base) allows users to input any base value
  *  -- User can input the string they want to convert to integer, errors checks
@@ -32,7 +32,7 @@ public class StringToIntDriver {
 		Integer number;
 		String testResult;
 
-		System.out.println("--- TESTING stringToInt base 10 functionality ---");
+		System.out.println("--- TESTING stringToInt functionality ---");
 		
 		// Show the results of each of the test cases
 		for (int i = 0; i < testCases.length; i++) {

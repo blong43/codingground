@@ -4,10 +4,10 @@ import java.util.*;
  *  Author: Blong Thao
  *  Date:   9/2/15
  *  
- *  Assumptions:
+ *  Assumptions for split function:
  *  -- String splits on a character and stores characters on the left of it
  *  -- Multiple split characters will produce an empty string in the array
- *  -- Cannot split a null String
+ *  -- Cannot split a null String, will print out error
  *  -- 
  *  
  */
