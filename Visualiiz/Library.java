@@ -1,12 +1,6 @@
 /*
  *  Author: Blong Thao
- *  
- *  Questions:
- *  -- What happens when there are two or more onSplit characters?
- *  
- *  Assumptions:
- *  
- *  
+ *  Date:   9/2/15
  */
 
 public class Library {
@@ -51,7 +45,7 @@ public class Library {
 						// Split value and set to temp array and move forward index
 						// and starting position of the next string
 						if ( split || atEndOfString ) {
-							// Gets the last character
+							// Gets the last character, cannot be the onSplit char
 							if ( atEndOfString && !split) {
 								i += 1;
 							}
@@ -59,7 +53,6 @@ public class Library {
 							strArrayIndex++;
 							startStr = i + 1;
 						}
-						// What happens if you have two or more split chars in a row?
 					}
 					
 					// Set size of String[] to the actual size of valid strings
@@ -89,18 +82,20 @@ public class Library {
 		// String is not null
 		if (value != null) {
 			// number to return, element is a char in String
-			int number = 0, element;
+			int number = 0, i = 0, element;
 			boolean isNegative = false;
 			
-			for (int i = 0; i < value.length(); i++) {
+			// negative integer check
+			if (value.charAt(i) == '-') {
+				isNegative = true;
+				i++;
+			}
+			
+			while (i < value.length()) {
 				element = value.charAt(i);
 				
-				// negative integer check
-				if (element == '-') {
-					isNegative = true;
-				}
 				// non-digit character check
-				else if (!Character.isDigit(element)) {
+				if (!Character.isDigit(element)) {
 					return null;
 				}
 				// valid character (is a number)
@@ -111,6 +106,7 @@ public class Library {
 					// subtract '0' (ASCII base 10 = 49) to add the next digit (0-9) 
 					number += element - '0';
 				}
+				i++;
 			}
 			if (isNegative) {
 				// make the number negative

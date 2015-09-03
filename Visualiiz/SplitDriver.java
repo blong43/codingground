@@ -2,17 +2,13 @@ import java.util.*;
 
 /*
  *  Author: Blong Thao
- *  
- *  All Questions:
- *  -- What should happen when there are two or more onSplit characters? (Edge Case)
- *  -- What should the output look like?
- *  	Zookeeper output in document does not work with my logic since I store the
- *      prior string after a split. (checked with the split function and it should
- *      be ["Z", "", "keeper"])
- *  -- How do I input a null and whitespace character as the onSplit character?
+ *  Date:   9/2/15
  *  
  *  Assumptions:
- *  
+ *  -- String splits on a character and stores characters on the left of it
+ *  -- Multiple split characters will produce an empty string in the array
+ *  -- Cannot split a null String
+ *  -- 
  *  
  */
 
@@ -33,14 +29,24 @@ public class SplitDriver {
 		String[][] strArrayTestCases = {{"I", "love", "turtles"}, {"b", "by"},
 				{"Z", "", "", "keeper"}, {null}, {""}, {"a", "b", "c", "d"}};
 		int testCaseLength;
-		boolean success = true;
+		boolean success;
 		
-		System.out.println("---TESTING split functionality---");
+		System.out.println("--- TESTING split functionality ---");
 		
 		for (int i = 0; i < stringsToSplit.length; i++)	{
+			success = true;
 			String[] stringArray = lib.split(stringsToSplit[i], splitOn[i]);
-			System.out.println("String to split: " + '"' + stringsToSplit[i] + 
-					'"' + ", on " + '"' + splitOn[i] + '"');
+			
+			if (stringArray == null) {
+				System.out.println("String to split: " + stringsToSplit[i] +
+						", on " + '"' + splitOn[i] + '"');
+				System.out.println("Cannot split null\n");
+				continue;
+			} else {
+				System.out.println("String to split: " + '"' + stringsToSplit[i] + 
+						'"' + ", on " + '"' + splitOn[i] + '"');
+			}
+			
 			
 			testCaseLength = strArrayTestCases[i].length;
 			
@@ -70,15 +76,24 @@ public class SplitDriver {
 	
 	// Allows for user input for the string to split and split on character
 	private static void testSplitUserInput(Library lib) {
-		String stringToSplit;
-		char splitOn;
+		String stringToSplit = "";
+		char splitOn = '\0';
+		boolean error = true;
 		Scanner in = new Scanner(System.in);
 		
-		System.out.println("Enter a string to split");
-		stringToSplit = in.nextLine();
-		
-		System.out.println("Enter a char to split on (Will take first character)");
-		splitOn = in.next().charAt(0);
+		do {
+			try {
+				System.out.println("Enter a string to split");
+				stringToSplit = in.nextLine();
+				
+				System.out.println("Enter a char to split on (Will take first character)");
+				splitOn = in.next().charAt(0);
+				error = false;
+			}
+			catch (Exception e) {
+				System.out.println("Error, re-input values");
+			}
+		} while (error);
 		
 		String[] stringArray = lib.split(stringToSplit, splitOn);
 		System.out.println("String to split: " + '"' + stringToSplit + 
