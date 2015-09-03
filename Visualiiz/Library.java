@@ -80,8 +80,9 @@ public class Library {
 	}
 	
 	public Integer stringToInt(String value, int base) {
+		// The base has to be between 2-62 to work
 		if (base < 2 || base > 62) {
-			System.out.println("Please input a base from 2 to 62");
+			System.out.println("Error: input a base from 2 to 62");
 			return null;
 		}
 		
@@ -90,7 +91,6 @@ public class Library {
 			// number to return, element is a char in String
 			int number = 0, power = 0, element;
 			boolean valid;
-//			boolean isNegative = false;
 			
 			// characters in each base
 			String baseChars = alphanumeric.substring(0, base);
@@ -113,38 +113,34 @@ public class Library {
 				}
 			}
 			
-//			// negative integer check
-//			if (value.charAt(i) == '-') {
-//				isNegative = true;
-//				i++;
-//			}
-			
+			// Start from the rightmost character in the String
 			for (int i = value.length() - 1; i >= 0; i--, power++) {
 				element = value.charAt(i);
 				
+				// Check if the element is a valid character
 				if (!Character.isLetterOrDigit(element)) {
 					return null;
 				}
+				// Subtract the ASCII value of '0' from element
 				else if (Character.isDigit(element)) {
 					element -= '0';
-				} 
+				}
+				// Subtract the ASCII value of 'a' and 10 from element
 				else if (Character.isLowerCase(element)) {
 					element -= 'a' - 10;
 				}
+				// Subtract the ASCII value of 'A' and 36 from element
 				else if (Character.isUpperCase(element)) {
-					element -= 'A' - 27;
+					element -= 'A' - 36;
 				}
-
+				
+				// Get the decimal(base10) value of the string
 				number += element * Math.pow(base, power);
 			}
-			
-//			if (isNegative) {
-//				// make the number negative
-//				number = -number;
-//			}
 			return number;
-			
 		}
+		// Invalid string (null check)
+		System.out.println("String is null");
 		return null;
 	}
 	
