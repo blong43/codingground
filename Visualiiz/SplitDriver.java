@@ -5,11 +5,22 @@ import java.util.*;
  *  Date:   9/2/15
  *  
  *  Assumptions for split function:
- *  -- String splits on a character and stores characters on the left of it
- *  -- Multiple split characters will produce an empty string in the array
  *  -- Cannot split a null String, will print out error
- *  -- 
+ *  -- String splits on a character and stores characters on the left of it
+ *  	into the String array as a string.
+ *  -- Multiple split characters will produce empty strings in the array
+ *  	equal to the amount of adjacent split characters.
+ *  -- An empty string stores an empty string into the String[]
+ *  -- An empty onSplit character splits all characters in the string into
+ *  	the string array.
  *  
+ *  Edge Cases:
+ *  -- Empty String: Stores an empty string into the String array ([""])
+ *  -- null String: Returns null, and error message ("Cannot split null")
+ *  
+ *  Limitations:
+ *  -- User Input: cannot input null or whitespace for the onSplit character
+ *  	and does not prompt user again to split another String.
  */
 
 public class SplitDriver {
@@ -22,7 +33,7 @@ public class SplitDriver {
 	
 	// Test Code for split function
 	private static void testSplitFunctionality(Library lib) {
-		
+		// Test Cases
 		String[] stringsToSplit = 
 			{"I love turtles", "baby", "Zookeeper", null, "", "abcd"};
 		char[] splitOn = {' ', 'a', 'o', 'x', 'x', lib.emptyChar};
@@ -33,6 +44,8 @@ public class SplitDriver {
 		
 		System.out.println("--- TESTING split functionality ---");
 		
+		// Traverses through the test case arrays to see if the split function
+		// returns the correct output, otherwise, prints out an error message
 		for (int i = 0; i < stringsToSplit.length; i++)	{
 			success = true;
 			String[] stringArray = lib.split(stringsToSplit[i], splitOn[i]);
@@ -47,12 +60,15 @@ public class SplitDriver {
 						'"' + ", on " + '"' + splitOn[i] + '"');
 			}
 			
-			
+			// Store the length of each test case string to be compared against
 			testCaseLength = strArrayTestCases[i].length;
 			
-			// Check against longer or shorter arrays, unsuccessful if not equal lengths
+			// Check against longer or shorter Strings, unsuccessful if not equal lengths
 			if (stringArray != null && testCaseLength == stringArray.length) {
-				for (int j = 0; j < strArrayTestCases[i].length; j++) {			
+				
+				// Traverse through each string in the testcase[] and string[]
+				for (int j = 0; j < strArrayTestCases[i].length; j++) {
+					// Unsuccessful split if test case strings did not match
 					if (!stringArray[j].equals(strArrayTestCases[i][j])) {
 						success = false;
 					}
@@ -62,6 +78,7 @@ public class SplitDriver {
 				success = false;
 			}
 			
+			// Print out success or fail
 			if (!success) {
 				System.out.println(stringsToSplit[i] + ": Unsuccessful Split");
 			} 
@@ -69,13 +86,16 @@ public class SplitDriver {
 				System.out.println(stringsToSplit[i] + ": Successful Split");
 			}
 			
+			// Print the string array, unravel it and make it look pretty
 			printOutput(stringArray);
 			System.out.println("\n");
 		}
 	}
 	
-	// Allows for user input for the string to split and split on character
+	// Allows for user input for the string to split and splitOn character
 	private static void testSplitUserInput(Library lib) {
+		System.out.println("--- TESTING User Input for split ---\n");
+		
 		String stringToSplit = "";
 		char splitOn = '\0';
 		boolean error = true;

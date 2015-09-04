@@ -97,6 +97,7 @@ public class Library {
 		return null;
 	}
 	
+	// stringToInt with only the String parameter, defaults to base 10
 	public Integer stringToInt(String value) {
 		return stringToInt(value, 10);
 	}
@@ -108,7 +109,7 @@ public class Library {
 			return null;
 		}
 		
-		// String is not null
+		// String is not null, then begin the string to int conversion
 		if (value != null) {
 			// number to return, element is a char in String
 			int number = 0, power = 0, element;
@@ -143,15 +144,15 @@ public class Library {
 				if (!Character.isLetterOrDigit(element)) {
 					return null;
 				}
-				// Subtract the ASCII value of '0' from element
+				// Convert from ASCII to integer for 0-9
 				else if (Character.isDigit(element)) {
 					element -= '0';
 				}
-				// Subtract the ASCII value of 'a' and 10 from element
+				// Convert from ASCII to integer for a-z
 				else if (Character.isLowerCase(element)) {
 					element -= 'a' - 10;
 				}
-				// Subtract the ASCII value of 'A' and 36 from element
+				// Convert from ASCII to integer for A-Z
 				else if (Character.isUpperCase(element)) {
 					element -= 'A' - 36;
 				}

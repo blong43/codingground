@@ -7,15 +7,22 @@ import java.util.*;
  *  Assumptions for stringToInt function:
  *  -- Default stringToInt(String) function has a preset base of 10
  *  	OR stringToInt(string, base) allows users to input any base value
- *  -- User can input the string they want to convert to integer, errors checks
+ *  
+ *  -- User can input the string they want to convert to integer, error checks
  *      for invalid strings with characters not in the base characters.
+ *      Ex. base 10 = 0-9 characters only; any other characters would be invalid
+ *   
+ *  -- The base number value can be between 2 and 62 for the 
+ *  	stringToInt(string, base) function
+ *  
+ *  Edge Cases:
  *  -- Number overflow may occur if String value is larger than an integer
- *       int is 32 bit signed type ranges from -2,147,483,648 to 2,147,483,647
- *       OR not go above the max value of an integer
- *  -- The base number value can be between 2 and 62, outputs accordingly
- *  -- Allows user to input only once upon successful conversion     
+ *  	int is 32 bit signed type ranges from -2,147,483,648 to 2,147,483,647
+ *      OR not go above the max value of an integer
+ *  
+ *  -- The String value should contain all characters associated with the base,
+ *  	otherwise an error will occur specifying that it was an Invalid String 
  */
-
 
 public class StringToIntDriver {
 	
