@@ -6,16 +6,21 @@ import java.util.*;
  *  
  *  Assumptions for split function:
  *  -- Cannot split a null String, will print out error
+ *  
  *  -- String splits on a character and stores characters on the left of it
  *  	into the String array as a string.
+ *  
  *  -- Multiple split characters will produce empty strings in the array
  *  	equal to the amount of adjacent split characters.
+ *  
  *  -- An empty string stores an empty string into the String[]
+ *  
  *  -- An empty onSplit character splits all characters in the string into
  *  	the string array.
  *  
  *  Edge Cases:
  *  -- Empty String: Stores an empty string into the String array ([""])
+ *  
  *  -- null String: Returns null, and error message ("Cannot split null")
  *  
  *  Limitations:

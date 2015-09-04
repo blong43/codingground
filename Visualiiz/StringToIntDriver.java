@@ -15,6 +15,12 @@ import java.util.*;
  *  -- The base number value can be between 2 and 62 for the 
  *  	stringToInt(string, base) function
  *  
+ *  -- Base 36 contains 0123456789abcdefghijklmnopqrstuvwxyz
+ *  	(base n <= 36 contains only the lower case alphabet)
+ *  
+ *  -- Base 62 contains (in this order e.g. a = 10, A = 36):
+ *  	0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+ *  	
  *  Edge Cases:
  *  -- Number overflow may occur if String value is larger than an integer
  *  	int is 32 bit signed type ranges from -2,147,483,648 to 2,147,483,647
